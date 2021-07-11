@@ -390,7 +390,12 @@ function delete_cnis_bins_and_confs {
 function clear_mlnx_vfs {
     local mlnx_interfaces=$(get_auto_net_device 0)
 
+    local old_IFS=$IFS
+    IFS=' '
+
     for interface in $mlnx_interfaces;do
         sudo create_vfs.sh -i "$interface" -v "0"
     done
+
+    IFS=$old_IFS
 }

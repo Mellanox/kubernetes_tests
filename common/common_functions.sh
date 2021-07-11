@@ -832,6 +832,9 @@ function get_auto_net_device {
 
     local index=0
 
+    local old_IFS=$IFS
+    IFS=' '
+
     for pci in $pcis;do
         interfaces+="$(ls /sys/bus/pci/devices/"0000:$pci"/net/) "
         ((index++))
@@ -839,6 +842,8 @@ function get_auto_net_device {
             break
         fi
     done
+
+    IFS=$old_IFS
 
     echo $interfaces
 }
